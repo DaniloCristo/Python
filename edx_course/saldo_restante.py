@@ -1,6 +1,6 @@
 def saldoRestante(saldo):
     '''
-        b: valor numerico que representa uma divida no cartão de creditos
+        saldo: valor numerico que representa uma divida no cartão de creditos
         retorno: após pagar por 12 meses o minimo da fatura o quanto ainda sobrara para pagar
         
     '''
