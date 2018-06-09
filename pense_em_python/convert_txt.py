@@ -7,5 +7,6 @@ def convert(file):
     for line in file:
         word = line.strip()
         words.append(word)
+    file.close()
     return words
    

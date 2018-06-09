@@ -12,11 +12,13 @@ def in_bisect(arr,s):
         elif arr[guess] < s:
             low = guess
         
+        #checando caso o valor passado não esteja dentro da lista
         if s > arr[guess] and s < arr[guess + 1]:
             return False
         
         guess = (high + low) // 2
     return "O indice em que o valor alvo se encontra é: {0}".format( guess)
+    
 #teste simples 
 print(in_bisect(["a","b","c"],"b"))
 
@@ -24,9 +26,10 @@ print(in_bisect(["a","b","c"],"b"))
 import convert_txt as c
 
 file = open("../words.txt")
+#guardar o resultado da lista em words
 words = c.convert(file)    
- 
-#procurando o indice da palavra "abandon"
+file.close() 
 
+#procurando o indice da palavra "abandon"
 print(in_bisect(words,"abandon"))            
     
