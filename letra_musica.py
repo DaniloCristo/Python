@@ -1,23 +1,19 @@
 
 def convert_file():
 	file = open("letra_musica.txt","r")
-	s = ""
-	l1 = []
+	t1 = tuple()
 
 	'''
 	file: um arquivo txt
-	s: uma string onde vai ser armazenada toda a string
-	l1: uma lista onde sera convertida a string, onde cada caractere representara um elemento
-	retorna: l1
+	t1: uma tuple onde sera adicionada a letra da musica onde cada index é um elemento
+	retorna: t1
+	
 	'''
 
 	for line in file:
 		word = line.strip()
-		s += word
-	l1 = list(s.lower())
-	file.close()
-	return l1
-	
+		t1 += tuple(word.lower())
+	return t1	
 
 def counting_letters(l1):
 	'''
@@ -35,8 +31,23 @@ def counting_letters(l1):
 	del[d[" "]]		
 	return d
 
+def most_frequencies(d):
+	values = d.values()
+	maior = max(values)
+	words = []
+	for word in d:
+		if d[word] == maior:
+			words.append(word)
+
+	return (words,maior)		
+
+
 #recebendo a lista com a letra da musica
-l1 = convert_file()
+t1 = convert_file()
+
 #recebendo o dicionario
-d = counting_letters(l1)
+d = counting_letters(t1)
 print(d)
+#palavras que mais se repetem
+freq = most_frequencies(d)
+print(freq)
