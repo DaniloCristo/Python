@@ -161,9 +161,8 @@ def isValidWord(word, hand, wordList):
     wordList: list of lowercase strings
     """
     # TO DO ... <-- Remove this comment when you code this function
-
-
-#
+    if word in wordList:
+        return all(i in hand.keys() for i in word)
 # Problem #4: Playing a hand
 #
 
@@ -257,4 +256,6 @@ def playGame(wordList):
 #
 if __name__ == '__main__':
     wordList = loadWords()
-    playGame(wordList)
+    #playGame(wordList)
+    hand = {"a":2,"c":1,"t":1,"e":2,"s":1}
+    print(isValidWord("camarada",hand,["teste","camarada","engraçado"]))
