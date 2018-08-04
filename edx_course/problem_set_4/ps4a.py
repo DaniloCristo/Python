@@ -176,8 +176,15 @@ def isValidWord(word, hand, wordList):
     wordList: list of lowercase strings
     """
     # TO DO ... <-- Remove this comment when you code this function
+    #verifica se a palavra esta dentro da lista
     if word in wordList:
-        return all(i in hand.keys() for i in word)
+        #pegando um dicionario da palavra cuja chave é uma letra e o valor vezes que aparece na palavra
+        d_word = getFrequencyDict(word)
+        for letter in d_word.keys():
+            #verificando se a letra não esta na nossa mão ou se sua aparição é maior que a que temos em nossa mão
+            if letter not in hand or d_word[letter] > hand[letter]:
+                return False
+        return True                  
 # Problem #4: Playing a hand
 #
 
