@@ -72,7 +72,14 @@ def getWordScore(word, n):
     returns: int >= 0
     """
     # TO DO ... <-- Remove this comment when you code this function
-
+    points = 0
+    for i in word:
+        points += SCRABBLE_LETTER_VALUES[i]
+    points *= len(word)
+    if len(word) == n:
+        return points + 50
+    else:
+        return points       
 
 
 #
@@ -90,7 +97,9 @@ def displayHand(hand):
 
     hand: dictionary (string -> int)
     """
+    #iterando entre as keys
     for letter in hand.keys():
+        #vendo quantas vezes a letra em questão aparece e imprimir na tela
         for j in range(hand[letter]):
              print(letter,end=" ")       # print all on the same line
     print()                             # print an empty line
@@ -113,13 +122,14 @@ def dealHand(n):
     hand={}
     numVowels = n // 3
     
+    #definindo quais vogais estarão na mão aleatoriamente
     for i in range(numVowels):
-        x = VOWELS[random.randrange(0,len(VOWELS))]
-        hand[x] = hand.get(x, 0) + 1
-        
+        vowel = VOWELS[random.randrange(0,len(VOWELS))]
+        hand[vowel] = hand.get(vowel, 0) + 1
+    #definindo as consoantes na mão    
     for i in range(numVowels, n):    
-        x = CONSONANTS[random.randrange(0,len(CONSONANTS))]
-        hand[x] = hand.get(x, 0) + 1
+        consonant = CONSONANTS[random.randrange(0,len(CONSONANTS))]
+        hand[consonant] = hand.get(consonant, 0) + 1
         
     return hand
 
@@ -143,7 +153,12 @@ def updateHand(hand, word):
     returns: dictionary (string -> int)
     """
     # TO DO ... <-- Remove this comment when you code this function
-
+    #criando uma copia da mão
+    new_hand = hand.copy()
+    #iterando a palavra e retirando suas aparições na mão
+    for i in word:
+        new_hand[i] = new_hand.get(i) - 1
+    return new_hand    
 
 
 #
@@ -174,7 +189,8 @@ def calculateHandlen(hand):
     returns: integer
     """
     # TO DO... <-- Remove this comment when you code this function
-
+    h_len = hand.values()
+    return sum(h_len)
 
 
 def playHand(hand, wordList, n):
@@ -257,5 +273,8 @@ def playGame(wordList):
 if __name__ == '__main__':
     wordList = loadWords()
     #playGame(wordList)
-    hand = {"a":2,"c":1,"t":1,"e":2,"s":1}
-    print(isValidWord("camarada",hand,["teste","camarada","engraçado"]))
+    hand = {'a':1, 'q':1, 'l':2, 'm':1, 'u':1, 'i':1}
+    #print(isValidWord("camarada",hand,["teste","camarada","engraçado"]))
+    #print(getWordScore("camarada",8))
+    #print(calculateHandlen(hand))
+    print(updateHand(hand,"quail"))
