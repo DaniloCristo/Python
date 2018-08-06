@@ -185,7 +185,8 @@ def isValidWord(word, hand, wordList):
             #verificando se a letra não esta na nossa mão ou se sua aparição é maior que a que temos em nossa mão
             if letter not in hand or d_word[letter] > hand[letter]:
                 return False
-        return True                  
+        return True
+    return False                      
 # Problem #4: Playing a hand
 #
 
