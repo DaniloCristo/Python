@@ -279,19 +279,27 @@ def playGame(wordList):
     hand = dict()
     while True:
         user_input = input("Enter n to deal a new hand, r to replay the last hand, or e to end game:")
-        if user_input == "e":
-            #quebrar o loop caso o exit aconteça
-            break
-        elif user_input == "n":
-            hand = dealHand(HAND_SIZE)
-            playHand(hand, wordList, HAND_SIZE)
-        elif user_input == "r":
-            if not hand:
-                print("You have not played a hand yet. Please play a new hand first")
-            else:
-                playHand(hand,wordList,HAND_SIZE)
-        else:
+        #vendo se o user_input é um comando válido
+        try:
+            assert user_input in ["n","r","e"]
+        except:
+            #caso nao seja um comando valido
             print("Invalid command.")
+        else:
+            #caso seja um comand válido seguir o codigo
+            if user_input == "e":
+                #quebrar o loop caso o exit aconteça
+                break
+            elif user_input == "n":
+                #nova mão
+                hand = dealHand(HAND_SIZE)
+                playHand(hand, wordList, HAND_SIZE)
+            elif user_input == "r":
+                #repetir a mão
+                if not hand:
+                    print("You have not played a hand yet. Please play a new hand first")
+                else:
+                    playHand(hand,wordList,HAND_SIZE)
 
 
 #
