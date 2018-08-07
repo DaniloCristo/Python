@@ -290,7 +290,8 @@ def playGame(wordList):
                 print("You have not played a hand yet. Please play a new hand first")
             else:
                 playHand(hand,wordList,HAND_SIZE)
-
+        else:
+            print("Invalid command.")
 
 
 #
@@ -299,7 +300,7 @@ def playGame(wordList):
 if __name__ == '__main__':
     wordList = loadWords()
     #playGame(wordList)
-    hand = {'a':1, 'q':1, 'l':2, 'm':1, 'u':1, 'i':1}
+    #hand = {'a':1, 'q':1, 'l':2, 'm':1, 'u':1, 'i':1}
     #print(isValidWord("camarada",hand,["teste","camarada","engraçado"]))
     #print(getWordScore("camarada",8))
     #print(calculateHandlen(hand))

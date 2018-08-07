@@ -127,37 +127,41 @@ def playGame(wordList):
     # TO DO... <-- Remove this comment when you code this function
     hand = dict()
     while True:
-        user_input = input(("Enter n to deal a new hand, r to replay the last hand, or e to end game: "))
-        player = input("Enter u to have yourself play, c to have the computer play: ")
-        if user_input == "n":
-            #iniciar uma nova partida
-            hand = dealHand(HAND_SIZE)
-            #jogar com o computador
-            if player == "c":
-                compPlayHand(hand,wordList,HAND_SIZE)
-            elif player == "u":
-                #usuario jogando
-                playHand(hand,wordList,HAND_SIZE)
-            else:
-                print("Invalid command.")        
-        elif user_input == "r":
-            #jogar com a mão da partida passada
-            if not hand:
-                #caso seja a primeira partida
+        user_input = input("Enter n to deal a new hand, r to replay the last hand, or e to end game:")
+        if user_input == "e":
+            #quebrar o loop caso o exit aconteça
+            break
+        else:
+            #caso tente repetir a mão na primeira rodada
+            if user_input == "r" and not hand:
                 print("You have not played a hand yet. Please play a new hand first")
-            else:
-                if player == "c":
-                    #computador jogando
-                    compPlayHand(hand,wordList,HAND_SIZE)
-                elif player == "u":
-                    #usuario jogando
+            #quem vai jogar
+            player = input("Enter u to have yourself play, c to have the computer play: ")
+            #nova mão
+            if user_input == "n":
+                hand = dealHand(HAND_SIZE)
+                #decidindo quem vai jogar
+                if player == "u":
                     playHand(hand,wordList,HAND_SIZE)
+                elif player == "c":
+                    compPlayHand(hand,wordList,HAND_SIZE)
                 else:
-                    print("Invalid command.")         
-        elif user_input == "e":
-            break  
-
-#
+                    #comando inválido pra variavel player
+                    print("Invalid command")
+            #repetir a mão            
+            elif user_input == "r" and hand:
+                #decidindo quem vai jogar
+                if player == "u":
+                    playHand(hand,wordList,HAND_SIZE)
+                elif player == "c":
+                    compPlayHand(hand,wordList,HAND_SIZE)
+                else:
+                     #comando inválido pra variavel player
+                    print("Invalid command.")
+            #caso digite algo que nao seja r, n ou e no user_input
+            else:
+                print("Invalid command.")   
+#   
 # Build data structures used for entire session and play game
 #
 if __name__ == '__main__':
