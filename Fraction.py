@@ -69,7 +69,7 @@ class Fraction(object):
 
 	def __lt__(self,other):
 		'''
-		retorna True se self for uma fração maior que other e False caso contrario
+		retorna True se self for uma fração menor que other e False caso contrario
 		'''
 		return self.converter() < other.converter()	
 	def __str__(self):
