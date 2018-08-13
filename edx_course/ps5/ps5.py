@@ -217,21 +217,21 @@ class PlaintextMessage(Message):
 
 
 class CiphertextMessage(Message):
-    def __init__(self, text):
-        '''
-        Initializes a CiphertextMessage object
-                
-        text (string): the message's text
+	def __init__(self, text):
+		'''
+	    Initializes a CiphertextMessage object
+	                
+	    text (string): the message's text
 
-        a CiphertextMessage object has two attributes:
-            self.message_text (string, determined by input text)
-            self.valid_words (list, determined using helper function load_words)
-        '''
-        super().__init__(text)
-        self.valid_words = load_words(WORDLIST_FILENAME)
+	    a CiphertextMessage object has two attributes:
+	    		self.message_text (string, determined by input text)
+	            self.valid_words (list, determined using helper function load_words)
+    	'''
+    	#text = mensagem encriptada
+		super().__init__(text)
 
-    def decrypt_message(self):
-        '''
+	def decrypt_message(self):
+		'''
         Decrypt self.message_text by trying every possible shift value
         and find the "best" one. We will define "best" as the shift that
         creates the maximum number of real words when we use apply_shift(shift)
@@ -246,22 +246,50 @@ class CiphertextMessage(Message):
         Returns: a tuple of the best shift value used to decrypt the message
         and the decrypted message text using that shift value
         '''
-        pass #delete this line and replace with your code here
+		#quantidade de palavras corretas em uma tentativa de descriptografar
+		size = 0
+		#chave final
+		shift = 0
+		#chave temporaria
+		temp_shift = 1
+		#mensagem que sera retornada
+		mensagem = ""
+		#testar todas as chaves
+		while temp_shift <= 26:
+			#variavel que vai contabilizar quantas palavras validas uma chave conseguiu fazer e verificar com as palavras validas anteriores
+			temp = 0
+			#tentando as chaves
+			mensagem_temp = self.apply_shift(26 - temp_shift).split()
+			for word in mensagem_temp:
+				if is_word(self.valid_words, word):
+					temp += 1
+
+			#comparando qual tem mais palavras válidas
+			if temp > size:
+				size = temp
+				mensagem = " ".join(mensagem_temp)
+				shift = temp_shift
+			temp_shift += 1
+
+		return (26 - shift, mensagem)				
+
 
 #Example test case (PlaintextMessage)
-plaintext = PlaintextMessage('hello', 4)
-print('Expected Output: jgnnq')
-print('Actual Output:', plaintext.get_message_text_encrypted())
-    
+#plaintext = PlaintextMessage('Message is Nonsense words: confident step talk essence airplane one quarrel hole firm fact attention insurance indeed early lengthen', 13)
+#print('Expected Output: jgnnq')
+#print('Actual Output:', plaintext.get_message_text_encrypted())
+#print(plaintext.get_message_text_encrypted())    
 #Example test case (CiphertextMessage)
-ciphertext = CiphertextMessage('jgnnq')
-print('Expected Output:', (24, 'hello'))
-print('Actual Output:', ciphertext.decrypt_message())
-
-m = Message("we are taking 6.00.1x")
+#ciphertext = CiphertextMessage(plaintext.get_message_text_encrypted())
+#print(ciphertext.decrypt_message())
+#print('Expected Output:', (24, 'okay am trying with more words'))
+#print('Actual Output:', ciphertext.decrypt_message())
+#print(is_word(load_words(WORDLIST_FILENAME), "a"))
+#m = Message("jgnnq")
+#print(m.apply_shift(26-2))
 #print(m.build_shift_dict(4))
 #print(m.apply_shift(3))
 #plaintext.change_shift(4)
 #print(plaintext.get_message_text_encrypted())
 #print(plaintext.get_encrypting_dict())
-print(plaintext.apply_shift(26-4))
+#print(get_story_string())
