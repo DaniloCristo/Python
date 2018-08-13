@@ -168,7 +168,11 @@ class PlaintextMessage(Message):
         Hint: consider using the parent class constructor so less 
         code is repeated
         '''
-        pass #delete this line and replace with your code here
+        super().__init__(text)
+        self.shift = shift
+        self.encrypting_dict = self.build_shift_dict(self.shift)
+        #criando messagem criptografada
+        self.message_text_encrypted = self.apply_shift(self.shift)
 
     def get_shift(self):
         '''
@@ -176,7 +180,7 @@ class PlaintextMessage(Message):
         
         Returns: self.shift
         '''
-        pass #delete this line and replace with your code here
+        return self.shift
 
     def get_encrypting_dict(self):
         '''
@@ -184,7 +188,9 @@ class PlaintextMessage(Message):
         
         Returns: a COPY of self.encrypting_dict
         '''
-        pass #delete this line and replace with your code here
+        #build_shift_dict retorna um dicionario com as chaves sendo o alfabeto e o valor sendo a "nova letra" pós mover "shift" vezes
+        #estou retornando uma copia
+        return self.encrypting_dict.copy()
 
     def get_message_text_encrypted(self):
         '''
@@ -192,7 +198,7 @@ class PlaintextMessage(Message):
         
         Returns: self.message_text_encrypted
         '''
-        pass #delete this line and replace with your code here
+        return self.message_text_encrypted
 
     def change_shift(self, shift):
         '''
@@ -205,7 +211,9 @@ class PlaintextMessage(Message):
 
         Returns: nothing
         '''
-        pass #delete this line and replace with your code here
+        self.shift = shift
+        self.encrypting_dict = self.build_shift_dict(self.shift)
+        self.message_text_encrypted = self.apply_shift(self.shift)
 
 
 class CiphertextMessage(Message):
@@ -219,7 +227,8 @@ class CiphertextMessage(Message):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
+        super().__init__(text)
+        self.valid_words = load_words(WORDLIST_FILENAME)
 
     def decrypt_message(self):
         '''
@@ -240,7 +249,7 @@ class CiphertextMessage(Message):
         pass #delete this line and replace with your code here
 
 #Example test case (PlaintextMessage)
-plaintext = PlaintextMessage('hello', 2)
+plaintext = PlaintextMessage('hello', 4)
 print('Expected Output: jgnnq')
 print('Actual Output:', plaintext.get_message_text_encrypted())
     
@@ -250,6 +259,9 @@ print('Expected Output:', (24, 'hello'))
 print('Actual Output:', ciphertext.decrypt_message())
 
 m = Message("we are taking 6.00.1x")
-print(m.build_shift_dict(3))
-print(m.apply_shift(3))
-
+#print(m.build_shift_dict(4))
+#print(m.apply_shift(3))
+#plaintext.change_shift(4)
+#print(plaintext.get_message_text_encrypted())
+#print(plaintext.get_encrypting_dict())
+print(plaintext.apply_shift(26-4))
